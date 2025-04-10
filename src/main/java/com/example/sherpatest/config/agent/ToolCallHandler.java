@@ -21,7 +21,7 @@ public class ToolCallHandler {
             if ("search_web".equals(functionName)) {
                 JsonNode args = objectMapper.readTree(argumentsJson);
                 String query = args.path("query").asText();
-                return webSearchService.search(query);
+                return webSearchService.searchRawHtml(query);
             }
 
             return "Unsupported tool function: " + functionName;

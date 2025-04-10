@@ -23,7 +23,15 @@ public class LeadScoutAgentService {
 
     public String runWebResearchWithToolSupport(String companyName) {
         LeadScoutAgent agent = new LeadScoutAgent();
-        String query = "웹 검색 도구를 사용해서 다음 회사를 조사하세요: " + companyName;
+        String query = String.format("""
+                다음 회사에 대해 검색 도구를 사용해서 조사하세요.
+                
+                회사 이름: "%s"
+                
+                검색 쿼리에는 위의 회사명을 그대로 사용하세요.
+                검색 결과에서 해당 회사의 웹사이트, 산업군, 연락처 정보 등을 정리하세요.
+                도구를 사용할 때 arguments는 반드시 {"query": "%s"} 형식의 JSON 문자열이어야 합니다.
+                """, companyName, companyName);
         List<Map<String, String>> messages = agent.buildMessages(query);
 
         // 1차 GPT 호출
